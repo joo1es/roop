@@ -1,0 +1,1 @@
+python run.py --execution-provider cuda --keep-fps --keep-audio --frame-processor face_enhancer
