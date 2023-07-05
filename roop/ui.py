@@ -13,6 +13,8 @@ from roop.predicter import predict_frame
 from roop.processors.frame.core import get_frame_processors_modules
 from roop.utilities import is_image, is_video, resolve_relative_path
 
+import time
+
 ROOT = None
 ROOT_HEIGHT = 700
 ROOT_WIDTH = 600
@@ -164,9 +166,9 @@ def select_output_path(start: Callable[[], None]) -> None:
     global RECENT_DIRECTORY_OUTPUT
 
     if is_image(roop.globals.target_path):
-        output_path = ctk.filedialog.asksaveasfilename(title='save image output file', defaultextension='.png', initialfile='output.png', initialdir=RECENT_DIRECTORY_OUTPUT)
+        output_path = ctk.filedialog.asksaveasfilename(title='save image output file', defaultextension='.png', initialfile=str(time.time()) + '_output.png', initialdir=RECENT_DIRECTORY_OUTPUT)
     elif is_video(roop.globals.target_path):
-        output_path = ctk.filedialog.asksaveasfilename(title='save video output file', defaultextension='.mp4', initialfile='output.mp4', initialdir=RECENT_DIRECTORY_OUTPUT)
+        output_path = ctk.filedialog.asksaveasfilename(title='save video output file', defaultextension='.mp4', initialfile=str(time.time()) + '_output.mp4', initialdir=RECENT_DIRECTORY_OUTPUT)
     else:
         output_path = None
     if output_path:
