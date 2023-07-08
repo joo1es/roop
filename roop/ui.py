@@ -4,6 +4,7 @@ import customtkinter as ctk
 from typing import Callable, Tuple
 import cv2
 from PIL import Image, ImageOps
+import ctypes
 
 import roop.globals
 import roop.metadata
@@ -51,6 +52,12 @@ def create_root(start: Callable[[], None], destroy: Callable[[], None]) -> ctk.C
     ctk.set_default_color_theme(resolve_relative_path('ui.json'))
 
     root = ctk.CTk()
+    #调用api设置成由应用程序缩放
+    ctypes.windll.shcore.SetProcessDpiAwareness(1)
+    #调用api获得当前的缩放因子
+    ScaleFactor=ctypes.windll.shcore.GetScaleFactorForDevice(0)
+    #设置缩放因子
+    root.tk.call('tk', 'scaling', ScaleFactor)
     root.minsize(ROOT_WIDTH, ROOT_HEIGHT)
     root.title(f'{roop.metadata.name} {roop.metadata.version}')
     root.configure()
